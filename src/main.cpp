@@ -23,7 +23,7 @@
  */
 #include <Arduino.h>
 #include <Battery.h>
-#include <StateManager.h>
+#include <ChargeController.h>
 // Define the GPIO pin to control the P-channel MOSFET
 const uint8_t MOSFET_GATE_PIN = D1; // Example GPIO pin to control the MOSFET
 const uint8_t BATTERY_PIN = A0;     // Analog pin to read the battery voltage
@@ -34,7 +34,7 @@ const float LOW_VOLTAGE_THRESHOLD = 1.0; // 1.0V (adjust this value based on you
 Battery battery(BATTERY_PIN, MOSFET_GATE_PIN);
 
 // State Manager will manage the charging process
-StateManager stateManager(battery);
+ChargeController chargeController(battery);
 
 void setup()
 {
@@ -72,7 +72,7 @@ void setup()
 void loop()
 {
 
-  stateManager.startLoading();
+  chargeController.startCharging();
   Serial.printf("Current Volatage: %f", battery.measureVoltage());
 
   // Add a delay to avoid too frequent readings (adjust the delay as needed)
