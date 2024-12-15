@@ -14,6 +14,22 @@ Key features of the project include:
 This project is designed to be adaptable for use in a wide range of applications, from consumer electronics to industrial equipment, ensuring that batteries remain reliable and efficient throughout their lifecycle.
 
 
+# State Prozess
+```markdown
+## State Process
+
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+    IDLE --> BATTERY_LOADING_IN : loadNewBattery()
+    BATTERY_LOADING_IN --> BATTERY_LOADED_IN : checkBatteryLoadStatus()
+    BATTERY_LOADED_IN --> CHARGING : startCharging()
+    CHARGING --> BATTERY_CHARGED : Battery fully charged
+    BATTERY_CHARGED --> IDLE : ejectBatteryToReadyBin()
+    CHARGING --> FAULT : doChecks()
+    FAULT --> IDLE : ejectBatteryToTrashBin()
+```
+```
 ## 🚀 Bootstrapping the Project
 
 To bootstrap the project, follow these steps:
