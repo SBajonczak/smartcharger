@@ -19,6 +19,7 @@ class ChargeController
 private:
     ChargerState currentState;
     Battery &battery;
+    DisplayController &displayController;
     void finishLoding();
     void doChecks();
     void loadNewBattery();
@@ -27,7 +28,7 @@ private:
     void checkBatteryLoadStatus();
 
 public:
-    ChargeController(Battery &batteryInstance);
+    ChargeController(Battery &batteryInstance, DisplayController &displayController);
     void doLoop();
     void startCharging();
     ChargerState getState() const;

@@ -1,29 +1,32 @@
 #include "ChargeController.h"
+#include "DisplayController.h"
 
-ChargeController::ChargeController(Battery &batteryInstance) : battery(batteryInstance), currentState(IDLE)
+ChargeController::ChargeController(Battery &batteryInstance, DisplayController &displayController) : battery(batteryInstance),
+                                                                                                     currentState(ChargerState::IDLE),
+                                                                                                     displayController(displayController)
 {
-    this->currentState = IDLE;
+    this->currentState = ChargerState::IDLE;
 }
 
 void ChargeController::loadNewBattery()
 {
     // Todo: Doing loading into the charger
-    this->currentState = BATTERY_LOADING_IN;
+    this->currentState = ChargerState::BATTERY_LOADING_IN;
 }
 
 void ChargeController::checkBatteryLoadStatus()
 {
-    this->currentState = BATTERY_LOADING_IN;
+    this->currentState = ChargerState::BATTERY_LOADING_IN;
 }
 
 void ChargeController::ejectBatteryToTrashBin()
 {
-    this->currentState = IDLE;
+    this->currentState = ChargerState::IDLE;
 }
 
 void ChargeController::ejectBatteryToReadyBin()
 {
-    this->currentState = IDLE;
+    this->currentState = ChargerState::IDLE;
 }
 
 void ChargeController::doLoop()
@@ -62,7 +65,7 @@ void ChargeController::startCharging()
 
     if (currentState == IDLE)
     {
-        currentState = CHARGING;
+        currentState = ChargerState::CHARGING;
     }
 }
 
@@ -75,7 +78,7 @@ void ChargeController::finishLoding()
 {
     if (currentState == CHARGING)
     {
-        currentState = IDLE;
+        currentState = ChargerState::IDLE;
     }
 }
 
@@ -84,6 +87,6 @@ void ChargeController::doChecks()
     // Add logic to perform checks and possibly change state to FAULT
     if (this->battery.isBatteryOk() == false)
     {
-        currentState = FAULT;
+        currentState = ChargerState::FAULT;
     }
 }
